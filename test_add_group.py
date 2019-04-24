@@ -1,12 +1,12 @@
 from selenium import webdriver
-# from selenium.webdriver.common.by import By
+from selenium.webdriver.common.by import By
 import unittest
+
+from contact import LoginGroup
 from group import Group
 
 
-class LoginTypeTest(unittest.TestCase):
-
-
+class GroupTest(unittest.TestCase):
 
     def setUp(self):
         self.wd = webdriver.Chrome()
@@ -16,9 +16,9 @@ class LoginTypeTest(unittest.TestCase):
         wd.get("http://localhost/addressbook/")
 
     def login(self, wd, username, password):
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(username)
+        group_page = LoginGroup()
+        group_page.USER_FIELD.clear()
+        group_page.USER_FIELD.send_keys(username)
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
@@ -27,19 +27,19 @@ class LoginTypeTest(unittest.TestCase):
     def open_groups(self, wd):
         wd.find_element_by_link_text("groups").click()
 
-    def create_group(self, wd, grour):
+    def create_group(self, wd, group):
         # click to create new group
         wd.find_element_by_name("new").click()
         # fill group form
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(grour.group_name)
+        wd.find_element_by_name("group_name").send_keys(group.group_name)
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(grour.header)
+        wd.find_element_by_name("group_header").send_keys(group.header)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(grour.footer)
+        wd.find_element_by_name("group_footer").send_keys(group.footer)
         # click to creat group button
         wd.find_element_by_name("submit").click()
 
