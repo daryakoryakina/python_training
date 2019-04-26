@@ -24,16 +24,13 @@ class TestAddContact(unittest.TestCase, GroupPage):
 
     def type_firstname(self, newnum):
         self.driver.find_element_by_link_text("add new").click()
-        self.driver.find_element_by_name("firstname").click()
+
         self.driver.find_element_by_name("firstname").clear()
         self.driver.find_element_by_name("firstname").send_keys(newnum.first_name)
-        self.driver.find_element_by_name("middlename").click()
         self.driver.find_element_by_name("middlename").clear()
         self.driver.find_element_by_name("middlename").send_keys(newnum.middle_name)
-        self.driver.find_element_by_name("nickname").click()
         self.driver.find_element_by_name("nickname").clear()
         self.driver.find_element_by_name("nickname").send_keys(newnum.nickname)
-        self.driver.find_element_by_name("address2").click()
         self.driver.find_element_by_name("address2").clear()
         self.driver.find_element_by_name("address2").send_keys(newnum.address2)
 
@@ -51,24 +48,6 @@ class TestAddContact(unittest.TestCase, GroupPage):
         self.type_firstname(NewNum(first_name="dfggtxf", middle_name="edszertgderxde", nickname="fgxhgcfj", address2="sdfzdfgxdhgcfj"))
         self.click_save()
         self.logout(driver)
-
-
-
-
-
-
-
-
-
-
-
-
-
-def tearDown(self):
-    self.driver.quit()
-    self.assertEqual([], self.verificationErrors)
-
-
 
 
 if __name__ == "__main__":
