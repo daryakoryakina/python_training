@@ -24,7 +24,7 @@ class GroupPage(BasePage):
         group_page = GroupPage(driver)
         group_page.click_on(self.AUTH_BUTTON)
 
-    def logout_1(self, driver):
+    def logout(self, driver):
         group_page = GroupPage(driver)
         group_page.click_on(self.LOGOUT)
 

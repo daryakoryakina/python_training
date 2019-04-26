@@ -41,11 +41,6 @@ class TestAddContact(unittest.TestCase, GroupPage):
         self.driver.find_element_by_xpath("//input[@value='Enter']").click()
         self.driver.find_element_by_link_text("home page").click()
 
-
-    def click_home_page_link(self):
-        self.driver.find_element_by_link_text("home page").click()
-        self.click_home_page_link()
-
     def logout(self, driver):
         group_page = GroupPage(driver)
         group_page.click_on(self.LOGOUT)
@@ -56,7 +51,8 @@ class TestAddContact(unittest.TestCase, GroupPage):
         self.type_firstname(NewNum(first_name="dfggtxf", middle_name="edszertgderxde", nickname="fgxhgcfj", address2="sdfzdfgxdhgcfj"))
         self.click_save()
         self.logout(driver)
-        time.sleep(2)
+
+
 
 
 
