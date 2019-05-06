@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+from group import Group
+
 
 class Application:
     def __init__(self):
@@ -11,22 +13,26 @@ class Application:
         driver = self.driver
         driver.get("http://localhost/addressbook/")
 
-    def login(self, driver, username):
-        group_page = GroupPage(driver)
-        group_page.click_on(self.USER_FIELD)
-        group_page.clear_input(self.USER_FIELD)
-        group_page.type_in(self.USER_FIELD, username)
+    def login(self, username):
+        driver = self.driver
+        driver.find_element(By.XPATH, "//input[@name = 'user']").click()
+        driver.find_element(By.XPATH, "//input[@name = 'user']").clear()
+        driver.find_element(By.XPATH, "//input[@name = 'user']").send_keys(username)
 
-    def password(self, driver, password):
-        group_page = GroupPage(driver)
-        group_page.clear_input(self.PASS_FIELD)
-        group_page.type_in(self.PASS_FIELD, password)
-        group_page.click_on(self.AUTH_BUTTON)
+    def password(self, password):
+        driver = self.driver
+        driver.find_element(By.NAME, "pass").click()
+        driver.find_element(By.NAME, "pass").clear()
+        driver.find_element(By.NAME, "pass").send_keys(password)
+        driver.find_element(By.XPATH, "//input[@value='Login']").click()
 
-    def open_groups(self, wd):
-        wd.find_element(By.LINK_TEXT, "groups").click()
 
-    def create_group(self, driver, group):
+    def open_groups(self):
+        driver = self.driver
+        driver.find_element(By.LINK_TEXT, "groups").click()
+
+    def create_group(self, group):
+        driver = self.driver
         # click to create new group
         driver.find_element_by_name("new").click()
         # fill group form
@@ -42,21 +48,22 @@ class Application:
         # click to creat group button
         driver.find_element(By.NAME, "submit").click()
 
-    def return_to_groups(self, driver):
+    def return_to_groups(self):
+        driver = self.driver
         driver.find_element(By.LINK_TEXT, "group page").click()
 
-    def logout(self, driver):
+    def logout(self):
+        driver = self.driver
         driver.find_element(By.LINK_TEXT, "Logout").click()
 
     def test_login_type(self):
-        driver = self.driver
-        self.method_name(driver)
-        self.login(driver, username="admin")
-        self.password(driver, password="secret")
-        self.open_groups(driver)
-        self.create_group(driver, Group(group_name="zdfsdf", header="sdfzdfg", footer="zfgcfghcfh"))
-        self.return_to_groups(driver)
-        self.logout(driver)
+        self.open_page()
+        self.login(username="admin")
+        self.password(password="secret")
+        self.open_groups()
+        self.create_group(Group(group_name="zdfsdf", header="sdfzdfg", footer="zfgcfghcfh"))
+        self.return_to_groups()
+        self.logout()
 
 
     def destroy(self):
