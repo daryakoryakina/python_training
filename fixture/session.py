@@ -1,9 +1,9 @@
 from selenium.webdriver.common.by import By
 
-from fixture.base_fixture import BaseFixture
+from fixture.base_fixture import BaseHelper
 
 
-class SessionHelper(BaseFixture):
+class SessionHelper(BaseHelper):
 
 # ввод логина
     def login(self, username):

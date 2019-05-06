@@ -1,10 +1,9 @@
 from selenium.webdriver.common.by import By
 
-from fixture.base_fixture import BaseFixture
+from fixture.base_fixture import BaseHelper
 
 
-class GroupHelper(BaseFixture):
-
+class GroupHelper(BaseHelper):
 
     def open(self):
         driver = self.app.driver
