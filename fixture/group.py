@@ -37,5 +37,25 @@ class GroupHelper(BaseHelper):
         driver.find_element(By.NAME, "selected[]").click()
         driver.find_element(By.XPATH, "//input[@name = 'delete'][1]").click()
 
+    def edit_group(self, group):
+        driver = self.app.driver
+        self.app.open_page()
+        driver.find_element(By.LINK_TEXT, "groups").click()
+        driver.find_element(By.NAME, "selected[]").click()
+        driver.find_element(By.XPATH, "//input[@value = 'Edit group']").click()
+        driver.find_element(By.NAME, "group_name").clear()
+        driver.find_element(By.NAME, "group_name").send_keys(group.group_name)
+        driver.find_element(By.NAME, "group_header").clear()
+        driver.find_element(By.NAME, "group_header").send_keys(group.header)
+        driver.find_element(By.NAME, "group_footer").clear()
+        driver.find_element(By.NAME, "group_footer").send_keys(group.footer)
+        driver.find_element(By.XPATH, "//input[@value = 'Update']").click()
+
+
+
+
+
+
+
 
 
