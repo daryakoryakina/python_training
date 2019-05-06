@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-import time
 
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 
 import unittest
 
-from newnum import NewNum
+from model.newnum import NewNum
 from pages.group_page import GroupPage
 
 

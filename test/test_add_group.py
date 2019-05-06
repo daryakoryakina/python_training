@@ -1,7 +1,7 @@
 import pytest
 # from selenium.webdriver.common.by import By
-from application import Application
-from group import Group
+from fixture.application import Application
+from model.group import Group
 # from pages.group_page import GroupPage
 
 

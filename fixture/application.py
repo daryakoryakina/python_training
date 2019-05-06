@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-from group import Group
+from model.group import Group
 
 
 class Application:
