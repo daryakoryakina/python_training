@@ -30,4 +30,12 @@ class GroupHelper(BaseHelper):
         driver = self.app.driver
         driver.find_element(By.LINK_TEXT, "group page").click()
 
-0
+    def delete_first_group(self):
+        driver = self.app.driver
+        self.app.open_page()
+        driver.find_element(By.LINK_TEXT, "groups").click()
+        driver.find_element(By.NAME, "selected[]").click()
+        driver.find_element(By.XPATH, "//input[@name = 'delete'][1]").click()
+
+
+

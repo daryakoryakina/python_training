@@ -16,12 +16,12 @@ class Application:
         self.group = GroupHelper(self)
         self.number = NumberHelper(self)
 
-    # открытие страницы адрессной книги
+# открытие страницы адрессной книги
     def open_page(self):
         driver = self.driver
         driver.get("http://localhost/addressbook/")
 
-
+# закрытие
     def destroy(self):
         self.driver.quit()
 
