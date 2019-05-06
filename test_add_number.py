@@ -42,8 +42,7 @@ class TestAddContact(unittest.TestCase, GroupPage):
         group_page = GroupPage(driver)
         group_page.click_on(self.LOGOUT)
 
-    def test_add_contact(self):
-        driver = self.driver
+    def test_add_contact(self, driver):
         self.auth(driver, username="admin", password="secret")
         self.type_firstname(NewNum(first_name="dfggtxf", middle_name="edszertgderxde", nickname="fgxhgcfj", address2="sdfzdfgxdhgcfj"))
         self.click_save()
