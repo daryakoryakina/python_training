@@ -14,9 +14,9 @@ def app(request):
 
 def test_login_type(app):
     app.open_page()
-    app.login(username="admin")
-    app.password(password="secret")
+    app.session.login(username="admin")
+    app.session.password(password="secret")
     app.open_groups()
     app.create_group(Group(group_name="zdfsdf", header="sdfzdfg", footer="zfgcfghcfh"))
     app.return_to_groups()
-    app.logout()
+    app.session.logout()

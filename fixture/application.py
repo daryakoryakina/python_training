@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+from fixture.session import SessionHelper
 from model.group import Group
 
 
@@ -8,24 +9,12 @@ class Application:
     def __init__(self):
         self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(10)
+        self.session = SessionHelper(self)
 
+    # открытие страницы адрессной книги
     def open_page(self):
         driver = self.driver
         driver.get("http://localhost/addressbook/")
-
-    def login(self, username):
-        driver = self.driver
-        driver.find_element(By.XPATH, "//input[@name = 'user']").click()
-        driver.find_element(By.XPATH, "//input[@name = 'user']").clear()
-        driver.find_element(By.XPATH, "//input[@name = 'user']").send_keys(username)
-
-    def password(self, password):
-        driver = self.driver
-        driver.find_element(By.NAME, "pass").click()
-        driver.find_element(By.NAME, "pass").clear()
-        driver.find_element(By.NAME, "pass").send_keys(password)
-        driver.find_element(By.XPATH, "//input[@value='Login']").click()
-
 
     def open_groups(self):
         driver = self.driver
@@ -52,18 +41,6 @@ class Application:
         driver = self.driver
         driver.find_element(By.LINK_TEXT, "group page").click()
 
-    def logout(self):
-        driver = self.driver
-        driver.find_element(By.LINK_TEXT, "Logout").click()
-
-    def test_login_type(self):
-        self.open_page()
-        self.login(username="admin")
-        self.password(password="secret")
-        self.open_groups()
-        self.create_group(Group(group_name="zdfsdf", header="sdfzdfg", footer="zfgcfghcfh"))
-        self.return_to_groups()
-        self.logout()
 
 
     def destroy(self):
