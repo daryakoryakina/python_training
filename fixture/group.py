@@ -14,17 +14,17 @@ class GroupHelper(BaseHelper):
         # click to create new group
         driver.find_element_by_name("new").click()
         # fill group form
-        driver.find_element(By.NAME, "group_name").click()
-        driver.find_element(By.NAME, "group_name").clear()
-        driver.find_element(By.NAME, "group_name").send_keys(group.group_name)
-        driver.find_element(By.NAME, "group_header").click()
-        driver.find_element(By.NAME, "group_header").clear()
-        driver.find_element(By.NAME, "group_header").send_keys(group.header)
-        driver.find_element(By.NAME, "group_footer").click()
-        driver.find_element(By.NAME, "group_footer").clear()
-        driver.find_element(By.NAME, "group_footer").send_keys(group.footer)
+        self.change_field_value("group_name", group.name)
+        self.change_field_value("group_footer", group.footer)
+        self.change_field_value("group_header", group.header)
         # click to creat group button
         driver.find_element(By.NAME, "submit").click()
+
+    def click_to_first_group(self):
+        driver = self.app.driver
+        self.app.open_page()
+        driver.find_element(By.LINK_TEXT, "groups").click()
+        driver.find_element(By.NAME, "selected[]").click()
 
     def return_to_groups(self):
         driver = self.app.driver
@@ -32,30 +32,24 @@ class GroupHelper(BaseHelper):
 
     def delete_first_group(self):
         driver = self.app.driver
-        self.app.open_page()
-        driver.find_element(By.LINK_TEXT, "groups").click()
-        driver.find_element(By.NAME, "selected[]").click()
         driver.find_element(By.XPATH, "//input[@name = 'delete'][1]").click()
+
+    def change_field_value(self, field_name, text):
+        driver = self.app.driver
+        if text is not None:
+            driver.find_element(By.NAME, field_name).clear()
+            driver.find_element(By.NAME, field_name).send_keys(text)
+
+    def update_group(self):
+        driver = self.app.driver
+        driver.find_element(By.XPATH, "//input[@value = 'Update']").click()
 
     def edit_group(self, group):
         driver = self.app.driver
         self.app.open_page()
-        driver.find_element(By.LINK_TEXT, "groups").click()
-        driver.find_element(By.NAME, "selected[]").click()
+        self.click_to_first_group()
         driver.find_element(By.XPATH, "//input[@value = 'Edit group']").click()
-        driver.find_element(By.NAME, "group_name").clear()
-        driver.find_element(By.NAME, "group_name").send_keys(group.group_name)
-        driver.find_element(By.NAME, "group_header").clear()
-        driver.find_element(By.NAME, "group_header").send_keys(group.header)
-        driver.find_element(By.NAME, "group_footer").clear()
-        driver.find_element(By.NAME, "group_footer").send_keys(group.footer)
-        driver.find_element(By.XPATH, "//input[@value = 'Update']").click()
-
-
-
-
-
-
-
-
-
+        self.change_field_value("group_name", group.name)
+        self.change_field_value("group_footer", group.footer)
+        self.change_field_value("group_header", group.header)
+        self.update_group()

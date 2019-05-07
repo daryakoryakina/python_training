@@ -3,8 +3,8 @@ from selenium.webdriver.common.by import By
 
 class Group:
 
-    def __init__(self, group_name, header, footer):
-        self.group_name = group_name
+    def __init__(self, name=None, header=None, footer=None):
+        self.name = name
         self.header = header
         self.footer = footer
 
