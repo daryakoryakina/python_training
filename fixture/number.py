@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.common.by import By
 
 from fixture.base_fixture import BaseHelper
-from model import edit_num
+from model import number
 
 
 class NumberHelper(BaseHelper):
