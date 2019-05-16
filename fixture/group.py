@@ -26,7 +26,7 @@ class GroupHelper(BaseHelper):
         driver.find_element(By.LINK_TEXT, "groups").click()
         driver.find_element(By.NAME, "selected[]").click()
 
-    def return_to_groups(self):
+    def open_group_page(self):
         driver = self.app.driver
         driver.find_element(By.LINK_TEXT, "group page").click()
 
@@ -53,3 +53,8 @@ class GroupHelper(BaseHelper):
         self.change_field_value("group_footer", group.footer)
         self.change_field_value("group_header", group.header)
         self.update_group()
+
+    def count(self):
+        driver = self.app.driver
+        self.open()
+        return len(driver.find_elements(By.NAME, "selected[]"))
