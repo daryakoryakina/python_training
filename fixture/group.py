@@ -5,9 +5,10 @@ from fixture.base_fixture import BaseHelper
 
 class GroupHelper(BaseHelper):
 
-    def open(self, page):
+    def open(self, page, endswith, name):
         driver = self.app.driver
-        driver.find_element(By.LINK_TEXT, page).click()
+        if not (driver.current_url.endswith(endswith) and len(driver.find_elements(By.NAME, name)) > 0):
+            driver.find_element(By.LINK_TEXT, page).click()
 
     def create(self, group):
         driver = self.app.driver
@@ -22,8 +23,6 @@ class GroupHelper(BaseHelper):
 
     def click_to_first_group(self):
         driver = self.app.driver
-        self.app.open_page()
-        driver.find_element(By.LINK_TEXT, "groups").click()
         driver.find_element(By.NAME, "selected[]").click()
 
     def open_group_page(self):
@@ -32,7 +31,7 @@ class GroupHelper(BaseHelper):
 
     def delete_first_group(self):
         driver = self.app.driver
-        driver.find_element(By.XPATH, "//input[@name = 'delete'][1]").click()
+        driver.find_element(By.NAME, "delete").click()
 
     def change_field_value(self, field_name, text):
         driver = self.app.driver
@@ -46,7 +45,6 @@ class GroupHelper(BaseHelper):
 
     def edit_group(self, group):
         driver = self.app.driver
-        self.app.open_page()
         self.click_to_first_group()
         driver.find_element(By.XPATH, "//input[@value = 'Edit group']").click()
         self.change_field_value("group_name", group.name)
@@ -54,7 +52,8 @@ class GroupHelper(BaseHelper):
         self.change_field_value("group_header", group.header)
         self.update_group()
 
-    def count(self, page):
+    def count(self, page, endswith, name):
         driver = self.app.driver
-        self.open(page)
+        self.open(page, endswith, name)
         return len(driver.find_elements(By.NAME, "selected[]"))
+

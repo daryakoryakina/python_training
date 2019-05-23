@@ -44,7 +44,6 @@ class NumberHelper(BaseHelper):
 
     def create_number(self, number):
         driver = self.app.driver
-        driver.find_element(By.LINK_TEXT, "add new").click()
         self.change_field_value("firstname", number.first_name)
         self.change_field_value("middlename", number.middle_name)
         self.change_field_value("nickname", number.nickname)

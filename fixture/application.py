@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+from fixture.base_fixture import BaseHelper
 from fixture.group import GroupHelper
 from fixture.number import NumberHelper
 from fixture.session import SessionHelper
@@ -11,10 +12,10 @@ class Application:
     def __init__(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
-        self.driver.implicitly_wait(10)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.number = NumberHelper(self)
+        self.base = BaseHelper(self)
 
     # открытие страницы адрессной книги
     def open_page(self):
