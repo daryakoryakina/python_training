@@ -8,10 +8,6 @@ from model import number
 
 class NumberHelper(BaseHelper):
 
-    def open_contact(self):
-        driver = self.app.driver
-        driver.find_element(By.LINK_TEXT, "add new").click()
-
     # метод для изменения одного параметра
     def change_field_value(self, field_name, text):
         driver = self.app.driver
@@ -21,18 +17,11 @@ class NumberHelper(BaseHelper):
 
     def fill_number_form(self, number):
         driver = self.app.driver
-        driver.find_element(By.NAME, "firstname").clear()
-        driver.find_element(By.NAME, "firstname").send_keys(number.first_name)
-        driver.find_element(By.NAME, "middlename").clear()
-        driver.find_element(By.NAME, "middlename").send_keys(number.middle_name)
-        driver.find_element(By.NAME, "nickname").clear()
-        driver.find_element(By.NAME, "nickname").send_keys(number.nickname)
-        driver.find_element(By.NAME, "address2").clear()
-        driver.find_element(By.NAME, "address2").send_keys(number.address2)
+        self.change_field_value("firstname", number.first_name)
+        self.change_field_value("middlename", number.middle_name)
+        self.change_field_value("nickname", number.nickname)
+        self.change_field_value("address2", number.address2)
 
-    def click_save(self):
-        driver = self.app.driver
-        driver.find_element(By.XPATH, "//input[@value='Enter']").click()
 
     def edit_number(self, number):
         driver = self.app.driver
@@ -52,6 +41,20 @@ class NumberHelper(BaseHelper):
         driver.find_element(By.NAME, "selected[]").click()
         driver.find_element(By.XPATH, "//input[@value = 'Delete']").click()
         driver.switch_to_alert().accept()
+
+    def create_number(self, number):
+        driver = self.app.driver
+        driver.find_element(By.LINK_TEXT, "add new").click()
+        self.change_field_value("firstname", number.first_name)
+        self.change_field_value("middlename", number.middle_name)
+        self.change_field_value("nickname", number.nickname)
+        self.change_field_value("address2", number.address2)
+        driver.find_element(By.XPATH, "//input[@value='Enter']").click()
+
+
+
+
+
 
 
 
