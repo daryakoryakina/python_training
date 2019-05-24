@@ -15,14 +15,6 @@ class NumberHelper(BaseHelper):
             driver.find_element(By.NAME, field_name).clear()
             driver.find_element(By.NAME, field_name).send_keys(text)
 
-    def fill_number_form(self, number):
-        driver = self.app.driver
-        self.change_field_value("firstname", number.first_name)
-        self.change_field_value("middlename", number.middle_name)
-        self.change_field_value("nickname", number.nickname)
-        self.change_field_value("address2", number.address2)
-
-
     def edit_number(self, number):
         driver = self.app.driver
         driver.find_element(By.XPATH, "//*[@title = 'Edit']").click()
@@ -34,7 +26,6 @@ class NumberHelper(BaseHelper):
     def home_page(self):
         driver = self.app.driver
         driver.find_element(By.LINK_TEXT, "home page").click()
-
 
     def delete_number(self):
         driver = self.app.driver

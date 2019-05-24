@@ -5,10 +5,6 @@ from fixture.base_fixture import BaseHelper
 
 class GroupHelper(BaseHelper):
 
-    def open(self, page, endswith, name):
-        driver = self.app.driver
-        if not (driver.current_url.endswith(endswith) and len(driver.find_elements(By.NAME, name)) > 0):
-            driver.find_element(By.LINK_TEXT, page).click()
 
     def create(self, group):
         driver = self.app.driver
@@ -52,8 +48,5 @@ class GroupHelper(BaseHelper):
         self.change_field_value("group_header", group.header)
         self.update_group()
 
-    def count(self, page, endswith, name):
-        driver = self.app.driver
-        self.open(page, endswith, name)
-        return len(driver.find_elements(By.NAME, "selected[]"))
+
 
