@@ -15,6 +15,10 @@ class NumberHelper(BaseHelper):
             driver.find_element(By.NAME, field_name).clear()
             driver.find_element(By.NAME, field_name).send_keys(text)
 
+    def open_number_page(self):
+        driver = self.app.driver
+        driver.find_element(By.XPATH, "//a[@href='./' and contains(text(), 'home')]").click()
+
     def edit_number(self, number):
         driver = self.app.driver
         driver.find_element(By.XPATH, "//*[@title = 'Edit']").click()
@@ -23,9 +27,6 @@ class NumberHelper(BaseHelper):
         driver.find_element(By.NAME, "update").click()
         driver.find_element(By.LINK_TEXT, "home page").click()
 
-    def home_page(self):
-        driver = self.app.driver
-        driver.find_element(By.LINK_TEXT, "home page").click()
 
     def delete_number(self):
         driver = self.app.driver
@@ -35,11 +36,17 @@ class NumberHelper(BaseHelper):
 
     def create_number(self, number):
         driver = self.app.driver
+        driver.find_element(By.XPATH, "//a[@href='edit.php']").click()
         self.change_field_value("firstname", number.first_name)
         self.change_field_value("middlename", number.middle_name)
         self.change_field_value("nickname", number.nickname)
         self.change_field_value("address2", number.address2)
         driver.find_element(By.XPATH, "//input[@value='Enter']").click()
+
+    def count(self):
+        driver = self.app.driver
+        self.open_number_page()
+        return len(driver.find_elements(By.NAME, "selected[]"))
 
 
 

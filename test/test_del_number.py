@@ -1,9 +1,12 @@
+import time
+
 from model.number import Number
 
 
 def test_delete_contact(app):
     app.open_page()
-    if app.base.count(page="add new", endswith="/edit.php", name="firstname") == 0:
-        app.number.create(Number(first_name="testtest"))
+    if app.number.count() == 0:
+        app.number.create_number(Number(first_name="testtest"))
+    time.sleep(10)
     app.number.delete_number()
 
