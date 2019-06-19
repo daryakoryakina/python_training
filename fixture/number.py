@@ -17,7 +17,8 @@ class NumberHelper(BaseHelper):
 
     def open_number_page(self):
         driver = self.app.driver
-        driver.find_element(By.XPATH, "//a[@href='./' and contains(text(), 'home')]").click()
+        if not (len(driver.find_elements(By.NAME, "add")) > 0):
+            driver.find_element(By.XPATH, "//a[@href='./' and contains(text(), 'home')]").click()
 
     def edit_number(self, number):
         driver = self.app.driver
@@ -25,6 +26,9 @@ class NumberHelper(BaseHelper):
         self.change_field_value("firstname", number.first_name)
         self.change_field_value("nickname", number.nickname)
         driver.find_element(By.NAME, "update").click()
+
+    def return_to_home_page(self):
+        driver = self.app.driver
         driver.find_element(By.LINK_TEXT, "home page").click()
 
 

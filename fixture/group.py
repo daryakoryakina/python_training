@@ -23,7 +23,8 @@ class GroupHelper(BaseHelper):
 
     def open_group_page(self):
         driver = self.app.driver
-        driver.find_element(By.XPATH, "//a[@href='group.php']").click()
+        if not (driver.current_url.endswith("group.php") and len(driver.find_elements(By.NAME, "new")) > 0):
+            driver.find_element(By.XPATH, "//a[@href='group.php']").click()
 
     def delete_first_group(self):
         driver = self.app.driver
