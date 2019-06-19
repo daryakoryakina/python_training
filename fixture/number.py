@@ -23,8 +23,9 @@ class NumberHelper(BaseHelper):
     def edit_number(self, number):
         driver = self.app.driver
         driver.find_element(By.XPATH, "//*[@title = 'Edit']").click()
-        self.change_field_value("firstname", number.first_name)
-        self.change_field_value("nickname", number.nickname)
+        if len(driver.find_elements(By.NAME, "firstname")) > 0:
+            self.change_field_value("firstname", number.first_name)
+            self.change_field_value("nickname", number.nickname)
         driver.find_element(By.NAME, "update").click()
 
     def return_to_home_page(self):
