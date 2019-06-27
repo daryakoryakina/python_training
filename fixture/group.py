@@ -1,10 +1,15 @@
 from selenium.webdriver.common.by import By
 
 from fixture.base_fixture import BaseHelper
+from model.group import Group
 
 
 class GroupHelper(BaseHelper):
 
+    #def fill_group(self, group):
+        #self.change_field_value("group_name", group.name)
+        #self.change_field_value("group_footer", group.footer)
+        #self.change_field_value("group_header", group.header)
 
     def create(self, group):
         driver = self.app.driver
@@ -58,6 +63,17 @@ class GroupHelper(BaseHelper):
     def return_to_home_page(self):
         driver = self.app.driver
         driver.find_element(By.XPATH, "//i/a[@href='group.php']").click()
+
+    def get_group_list(self):
+        driver = self.app.driver
+        self.open_group_page()
+        groups = []
+        for element in driver.find_elements(By.CSS_SELECTOR, "span.group"):
+            text = element.text
+            id = element.find_element(By.NAME, "selected[]").get_attribute("value")
+            groups.append(Group(name=text, id=id))
+        return groups
+
 
 
 
