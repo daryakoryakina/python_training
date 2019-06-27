@@ -16,9 +16,7 @@ class GroupHelper(BaseHelper):
         # click to create new group
         driver.find_element_by_name("new").click()
         # fill group form
-        self.change_field_value("group_name", group.name)
-        self.change_field_value("group_footer", group.footer)
-        self.change_field_value("group_header", group.header)
+        self.fill_group_form(group)
         # click to creat group button
         driver.find_element(By.NAME, "submit").click()
 
@@ -45,14 +43,20 @@ class GroupHelper(BaseHelper):
         driver = self.app.driver
         driver.find_element(By.XPATH, "//input[@value = 'Update']").click()
 
+    def fill_group_form(self, group):
+        driver = self.app.driver
+        self.change_field_value("group_name", group.name)
+        self.change_field_value("group_footer", group.footer)
+        self.change_field_value("group_header", group.header)
+
+
+
     def edit_group(self, group):
         driver = self.app.driver
         self.click_to_first_group()
         driver.find_element(By.XPATH, "//input[@value = 'Edit group']").click()
         if driver.current_url.endswith("group.php") and len(driver.find_elements(By.NAME, "group_name")) > 0:
-            self.change_field_value("group_name", group.name)
-            self.change_field_value("group_footer", group.footer)
-            self.change_field_value("group_header", group.header)
+            self.fill_group_form(group)
             self.update_group()
 
     def count(self):
