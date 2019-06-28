@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 
 from fixture.base_fixture import BaseHelper
 from model import number
+from model.number import Number
 
 
 class NumberHelper(BaseHelper):
@@ -55,6 +56,18 @@ class NumberHelper(BaseHelper):
         driver = self.app.driver
         self.open_number_page()
         return len(driver.find_elements(By.NAME, "selected[]"))
+
+    def get_number_list(self):
+        driver = self.app.driver
+        self.open_number_page()
+        numbers = []
+        for element in driver.find_elements(By.XPATH, "//*[@name='entry']"):
+            text = element.text
+            id = element.find_element(By.NAME, "selected[]").get_attribute("value")
+            numbers.append(Number(first_name=text, second_name=text, id=id))
+        return numbers
+
+
 
 
 
