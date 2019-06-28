@@ -28,22 +28,32 @@ class NumberHelper(BaseHelper):
         self.change_field_value("nickname", number.nickname)
         self.change_field_value("address2", number.address2)
 
-    def edit_number(self, number):
+    def click_group_by_index(self, index):
         driver = self.app.driver
-        driver.find_element(By.XPATH, "//*[@title = 'Edit']").click()
+        driver.find_elements(By.XPATH, "//*[@title = 'Edit']")[index].click()
+
+    def edit_number_by_index(self, index, number):
+        driver = self.app.driver
+        self.click_group_by_index(index)
         if len(driver.find_elements(By.NAME, "firstname")) > 0:
             self.change_field_value("firstname", number.first_name)
             self.change_field_value("nickname", number.nickname)
         driver.find_element(By.NAME, "update").click()
         self.number_cache = None
 
+    def edit_number(self):
+        self.edit_number_by_index(0)
+
     def return_to_home_page(self):
         driver = self.app.driver
         driver.find_element(By.LINK_TEXT, "home page").click()
 
     def delete_number(self):
+        self.delete_number_by_index(0)
+
+    def delete_number_by_index(self, index):
         driver = self.app.driver
-        driver.find_element(By.NAME, "selected[]").click()
+        driver.find_elements(By.NAME, "selected[]")[index].click()
         driver.find_element(By.XPATH, "//input[@value = 'Delete']").click()
         driver.switch_to_alert().accept()
         self.number_cache = None

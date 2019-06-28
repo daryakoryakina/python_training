@@ -1,3 +1,5 @@
+from random import randrange
+
 from model.number import Number
 
 
@@ -6,13 +8,11 @@ def test_edit_contact(app):
     if app.number.count() == 0:
         app.number.create_number(Number(first_name="testtest"))
     old_number = app.number.get_number_list()
+    index = randrange(len(old_number))
     number = Number(second_name="1234567", first_name="sgfdxzdhxf")
-    number.id = old_number[0].id
-    app.number.edit_number(number)
+    number.id = old_number[index].id
+    app.number.edit_number_by_index(index, number)
     new_number = app.number.get_number_list()
     assert len(old_number) == len(new_number)
-    old_number[0] = number
+    old_number[index] = number
     assert sorted(old_number, key=Number.id_or_max) == sorted(new_number, key=Number.id_or_max)
-
-
-
