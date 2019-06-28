@@ -35,6 +35,7 @@ class NumberHelper(BaseHelper):
             self.change_field_value("firstname", number.first_name)
             self.change_field_value("nickname", number.nickname)
         driver.find_element(By.NAME, "update").click()
+        self.number_cache = None
 
     def return_to_home_page(self):
         driver = self.app.driver
@@ -45,36 +46,29 @@ class NumberHelper(BaseHelper):
         driver.find_element(By.NAME, "selected[]").click()
         driver.find_element(By.XPATH, "//input[@value = 'Delete']").click()
         driver.switch_to_alert().accept()
+        self.number_cache = None
 
     def create_number(self, number):
         driver = self.app.driver
         driver.find_element(By.XPATH, "//a[@href='edit.php']").click()
         self.fill_number_form(number)
         driver.find_element(By.XPATH, "//input[@value='Enter']").click()
+        self.number_cache = None
 
     def count(self):
         driver = self.app.driver
         self.open_number_page()
         return len(driver.find_elements(By.NAME, "selected[]"))
 
+    number_cache = None
+
     def get_number_list(self):
-        driver = self.app.driver
-        self.open_number_page()
-        numbers = []
-        for element in driver.find_elements(By.XPATH, "//*[@name='entry']"):
-            text = element.text
-            id = element.find_element(By.NAME, "selected[]").get_attribute("value")
-            numbers.append(Number(first_name=text, second_name=text, id=id))
-        return numbers
-
-
-
-
-
-
-
-
-
-
-
-
+        if self.number_cache is None:
+            driver = self.app.driver
+            self.open_number_page()
+            self.number_cache = []
+            for element in driver.find_elements(By.XPATH, "//*[@name='entry']"):
+                text = element.text
+                id = element.find_element(By.NAME, "selected[]").get_attribute("value")
+                self.number_cache.append(Number(first_name=text, second_name=text, id=id))
+            return list(self.number_cache)
