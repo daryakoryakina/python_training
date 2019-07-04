@@ -24,7 +24,7 @@ class NumberHelper(BaseHelper):
     def fill_number_form(self, number):
         driver = self.app.driver
         self.change_field_value("firstname", number.first_name)
-        self.change_field_value("middlename", number.middle_name)
+        self.change_field_value("lastname", number.lastname)
         self.change_field_value("nickname", number.nickname)
         self.change_field_value("address2", number.address2)
 
@@ -36,8 +36,7 @@ class NumberHelper(BaseHelper):
         driver = self.app.driver
         self.click_group_by_index(index)
         if len(driver.find_elements(By.NAME, "firstname")) > 0:
-            self.change_field_value("firstname", number.first_name)
-            self.change_field_value("nickname", number.nickname)
+            self.fill_number_form(number)
         driver.find_element(By.NAME, "update").click()
         self.number_cache = None
 
@@ -77,10 +76,10 @@ class NumberHelper(BaseHelper):
             driver = self.app.driver
             self.open_number_page()
             self.number_cache = []
-            for element in driver.find_elements(By.XPATH, "//*[@name='entry']"):
-                cells = element.find_element(By.TAG_NAME, "td")
+            for element in driver.find_elements(By.XPATH, "//*[@name = 'entry']"):
+                cells = element.find_elements(By.XPATH, "//tr/td")
                 firstname = cells[1].text
                 lastname = cells[2].text
                 id = cells[0].find_element(By.TAG_NAME, "input").get_attribute("value")
-                self.number_cache.append(Number(first_name=firstname, second_name=lastname, id=id))
+                self.number_cache.append(Number(first_name=firstname, lastname=lastname, id=id))
             return list(self.number_cache)
