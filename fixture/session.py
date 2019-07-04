@@ -42,7 +42,11 @@ class SessionHelper(BaseHelper):
 
     def is_logged_in_as(self, username):
         driver = self.app.driver
-        return driver.find_element(By.XPATH, "//*[text() ='(admin)']").text == "("+username+")"
+        return self.get_logged_user() == username
+
+    def get_logged_user(self):
+        driver = self.app.driver
+        return driver.find_element(By.XPATH, "//*[text() ='(admin)']").text[1:-1]
 
 
 

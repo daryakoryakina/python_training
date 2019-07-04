@@ -78,7 +78,9 @@ class NumberHelper(BaseHelper):
             self.open_number_page()
             self.number_cache = []
             for element in driver.find_elements(By.XPATH, "//*[@name='entry']"):
-                text = element.text
-                id = element.find_element(By.NAME, "selected[]").get_attribute("value")
-                self.number_cache.append(Number(first_name=text, second_name=text, id=id))
+                cells = element.find_element(By.TAG_NAME, "td")
+                firstname = cells[1].text
+                lastname = cells[2].text
+                id = cells[0].find_element(By.TAG_NAME, "input").get_attribute("value")
+                self.number_cache.append(Number(first_name=firstname, second_name=lastname, id=id))
             return list(self.number_cache)
