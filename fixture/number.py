@@ -3,8 +3,10 @@ import time
 from selenium.webdriver.common.by import By
 
 from fixture.base_fixture import BaseHelper
-from model import number
+
 from model.number import Number
+
+import re
 
 
 class NumberHelper(BaseHelper):
@@ -23,18 +25,18 @@ class NumberHelper(BaseHelper):
 
     def fill_number_form(self, number):
         driver = self.app.driver
-        self.change_field_value("firstname", number.first_name)
+        self.change_field_value("firstname", number.firstname)
         self.change_field_value("lastname", number.lastname)
         self.change_field_value("nickname", number.nickname)
         self.change_field_value("address2", number.address2)
 
-    def click_group_by_index(self, index):
+    def click_number_by_index(self, index):
         driver = self.app.driver
         driver.find_elements(By.XPATH, "//*[@title = 'Edit']")[index].click()
 
     def edit_number_by_index(self, index, number):
         driver = self.app.driver
-        self.click_group_by_index(index)
+        self.click_number_by_index(index)
         if len(driver.find_elements(By.NAME, "firstname")) > 0:
             self.fill_number_form(number)
         driver.find_element(By.NAME, "update").click()
@@ -81,5 +83,51 @@ class NumberHelper(BaseHelper):
                 firstname = cells[1].text
                 lastname = cells[2].text
                 id = cells[0].find_element(By.TAG_NAME, "input").get_attribute("value")
-                self.number_cache.append(Number(first_name=firstname, lastname=lastname, id=id))
+                all_phones = cells[5].text.splitlines()
+                self.number_cache.append(Number(firstname=firstname, lastname=lastname, id=id,
+                                                homephone=all_phones[0], mobilephone=all_phones[1],
+                                                workphone=all_phones[2], secondaryphone=all_phones[3]))
             return list(self.number_cache)
+
+
+    def open_number_to_edit_by_index(self, index):
+        driver = self.app.driver
+        self.open_number_page()
+        row = driver.find_elements(By.XPATH, "//*[@name = 'entry']")[index]
+        cell = row.find_elements(By.XPATH, "//tr/td")[3]
+        cell.find_element(By.XPATH, "//*[@title = 'Edit']").click()
+
+    def open_number_view_by_index(self, index):
+        driver = self.app.driver
+        self.open_number_page()
+        row = driver.find_elements(By.XPATH, "//*[@title = 'Details']")[index]
+        cell = row.find_elements(By.XPATH, "//tr/td")[0]
+        cell.find_element(By.XPATH, "//*[@title = 'Edit']").click()
+
+    def get_contact_info_from_edit_page(self, index):
+        driver = self.app.driver
+        self.open_number_to_edit_by_index(index)
+        firstname = driver.find_element(By.NAME, "firstname").get_attribute("value")
+        lastname = driver.find_element(By.NAME, "lastname").get_attribute("value")
+        id = driver.find_element(By.NAME, "id").get_attribute("value")
+        homephone = driver.find_element(By.NAME, "home").get_attribute("value")
+        mobilephone = driver.find_element(By.NAME, "mobile").get_attribute("value")
+        workphone = driver.find_element(By.NAME, "work").get_attribute("value")
+        secondaryphone = driver.find_element(By.NAME, "phone2").get_attribute("value")
+        return Number(firstname=firstname, lastname=lastname, id=id,
+                      homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
+
+    def get_number_from_view_page(self, index):
+        driver = self.app.driver
+        self.open_number_view_by_index(index)
+        text = driver.find_element(By.ID, 'content').text
+        homephone = re.search("H: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        secondaryphone = re.search("P: (.*)", text).group(1)
+        return Number(homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
+
+
+
+
+

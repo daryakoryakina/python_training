@@ -6,7 +6,7 @@ from model.number import Number
 def test_delete_some_contact(app):
     app.open_page()
     if app.number.count() == 0:
-        app.number.create_number(Number(first_name="testtest"))
+        app.number.create_number(Number(firstname="testtest"))
     old_number = app.number.get_number_list()
     index = randrange(len(old_number))
     app.number.delete_number_by_index(index)
