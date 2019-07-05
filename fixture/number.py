@@ -29,6 +29,15 @@ class NumberHelper(BaseHelper):
         self.change_field_value("lastname", number.lastname)
         self.change_field_value("nickname", number.nickname)
         self.change_field_value("address2", number.address2)
+        self.change_field_value("company", number.company)
+        self.change_field_value("address", number.address)
+        self.change_field_value("email", number.email)
+        self.change_field_value("email2", number.email2)
+        self.change_field_value("home", number.homephone)
+        self.change_field_value("mobile", number.mobilephone)
+        self.change_field_value("work", number.workphone)
+        self.change_field_value("phone2", number.email2)
+
 
     def click_number_by_index(self, index):
         driver = self.app.driver
@@ -83,10 +92,12 @@ class NumberHelper(BaseHelper):
                 firstname = cells[1].text
                 lastname = cells[2].text
                 id = cells[0].find_element(By.TAG_NAME, "input").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
-                self.number_cache.append(Number(firstname=firstname, lastname=lastname, id=id,
-                                                homephone=all_phones[0], mobilephone=all_phones[1],
-                                                workphone=all_phones[2], secondaryphone=all_phones[3]))
+                all_phones = cells[5].text
+                all_emails = cells[4].text
+                address = cells[3]
+                self.number_cache.append(
+                    Number(firstname=firstname, lastname=lastname, id=id, all_phones_from_home_page=all_phones,
+                           all_emails=all_emails, address=address))
             return list(self.number_cache)
 
     def open_number_to_edit_by_index(self, index):
@@ -112,8 +123,12 @@ class NumberHelper(BaseHelper):
         mobilephone = driver.find_element(By.NAME, "mobile").get_attribute("value")
         workphone = driver.find_element(By.NAME, "work").get_attribute("value")
         secondaryphone = driver.find_element(By.NAME, "phone2").get_attribute("value")
-        return Number(firstname=firstname, lastname=lastname, id=id,
-                      homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
+        address = driver.find_element(By.NAME, "address").get_attribute("value")
+        email = driver.find_element(By.NAME, "email").get_attribute("value")
+        email2 = driver.find_element(By.NAME, "email2").get_attribute("value")
+        return Number(firstname=firstname, lastname=lastname, id=id, homephone=homephone, mobilephone=mobilephone,
+                      workphone=workphone, secondaryphone=secondaryphone,
+                      address=address, email=email, email2=email2)
 
     def get_number_from_view_page(self, index):
         driver = self.app.driver
@@ -124,8 +139,6 @@ class NumberHelper(BaseHelper):
         workphone = re.search("W: (.*)", text).group(1)
         secondaryphone = re.search("P: (.*)", text).group(1)
         return Number(homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
-
-
 
 
 
