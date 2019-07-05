@@ -90,15 +90,15 @@ class NumberHelper(BaseHelper):
             self.number_cache = []
             for element in driver.find_elements(By.XPATH, "//*[@name = 'entry']"):
                 cells = element.find_elements(By.XPATH, "//tr/td")
-                firstname = cells[1].text
-                lastname = cells[2].text
+                firstname = cells[2].text
+                lastname = cells[1].text
                 id = cells[0].find_element(By.TAG_NAME, "input").get_attribute("value")
                 all_phones = cells[5].text
                 all_emails = cells[4].text
-                address = cells[3]
+                address = cells[3].text
                 self.number_cache.append(
                     Number(firstname=firstname, lastname=lastname, id=id, all_phones_from_home_page=all_phones,
-                           all_emails=all_emails, address=address))
+                           address=address, all_emails=all_emails))
             return list(self.number_cache)
 
     def open_number_to_edit_by_index(self, index):

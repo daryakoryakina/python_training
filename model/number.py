@@ -16,7 +16,7 @@ class Number:
         self.workphone = workphone
         self.secondaryphone = secondaryphone
         self.id = id
-        self.all_phones_from_home_page=all_phones_from_home_page
+        self.all_phones_from_home_page = all_phones_from_home_page
         self.company = company
         self.address = address
         self.email = email
