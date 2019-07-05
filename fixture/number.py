@@ -89,7 +89,6 @@ class NumberHelper(BaseHelper):
                                                 workphone=all_phones[2], secondaryphone=all_phones[3]))
             return list(self.number_cache)
 
-
     def open_number_to_edit_by_index(self, index):
         driver = self.app.driver
         self.open_number_page()
@@ -100,9 +99,8 @@ class NumberHelper(BaseHelper):
     def open_number_view_by_index(self, index):
         driver = self.app.driver
         self.open_number_page()
-        row = driver.find_elements(By.XPATH, "//*[@title = 'Details']")[index]
-        cell = row.find_elements(By.XPATH, "//tr/td")[0]
-        cell.find_element(By.XPATH, "//*[@title = 'Edit']").click()
+        row = driver.find_elements(By.XPATH, "//*[@name = 'entry']")[index]
+        row.find_element(By.XPATH, "//*[@title = 'Details']").click()
 
     def get_contact_info_from_edit_page(self, index):
         driver = self.app.driver
@@ -120,7 +118,7 @@ class NumberHelper(BaseHelper):
     def get_number_from_view_page(self, index):
         driver = self.app.driver
         self.open_number_view_by_index(index)
-        text = driver.find_element(By.ID, 'content').text
+        text = driver.find_element(By.ID, "content").text
         homephone = re.search("H: (.*)", text).group(1)
         mobilephone = re.search("M: (.*)", text).group(1)
         workphone = re.search("W: (.*)", text).group(1)
