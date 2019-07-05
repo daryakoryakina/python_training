@@ -74,6 +74,7 @@ class NumberHelper(BaseHelper):
         self.fill_number_form(number)
         driver.find_element(By.XPATH, "//input[@value='Enter']").click()
         self.number_cache = None
+        self.return_to_home_page()
 
     def count(self):
         driver = self.app.driver
