@@ -11,10 +11,10 @@ def test_get_and_assert_random_number(app):
                         company="mycompany", address="address1", email="mail@mail", email2="mail@mail2",
                         homephone="+123", mobilephone="234", workphone="567", secondaryphone="3456")
         app.number.create_number(number)
-    #old = app.number.get_number_list()
-    #index = randrange(len(old))
-    contact_info_from_home_page = app.number.get_number_list()[1]
-    contact_info_from_edit_page = app.number.get_contact_info_from_edit_page(1)
+    old = app.number.get_number_list()
+    index = randrange(len(old))
+    contact_info_from_home_page = app.number.get_number_list()[index]
+    contact_info_from_edit_page = app.number.get_contact_info_from_edit_page(index)
     assert contact_info_from_home_page.firstname == contact_info_from_edit_page.firstname
     assert contact_info_from_home_page.lastname == contact_info_from_edit_page.lastname
     assert contact_info_from_home_page.address == contact_info_from_edit_page.address

@@ -99,7 +99,7 @@ class NumberHelper(BaseHelper):
                 self.number_cache.append(
                     Number(firstname=firstname, lastname=lastname, id=id, all_phones_from_home_page=all_phones,
                            address=address, all_emails=all_emails))
-            return list(self.number_cache)
+        return self.number_cache
 
     def open_number_to_edit_by_index(self, index):
         driver = self.app.driver
