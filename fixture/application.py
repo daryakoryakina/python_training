@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+
 
 from fixture.base_fixture import BaseHelper
 from fixture.group import GroupHelper
@@ -9,19 +9,25 @@ from model.group import Group
 
 
 class Application:
-    def __init__(self):
-        self.driver = webdriver.Chrome()
+    def __init__(self, browser, base_url):
+        if browser == "chrome":
+            self.driver = webdriver.Chrome()
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox()
+        else:
+            raise ValueError("Unrecognized browser %s" % browser)
         self.driver.maximize_window()
         self.driver.implicitly_wait(4)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.number = NumberHelper(self)
         self.base = BaseHelper(self)
+        self.base_url = base_url
 
     # открытие страницы адрессной книги
     def open_page(self):
         driver = self.driver
-        driver.get("http://localhost/addressbook/")
+        driver.get(self.base_url)
 
     # закрытие
     def destroy(self):
