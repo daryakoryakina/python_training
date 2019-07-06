@@ -11,7 +11,7 @@ class Group:
 
 # стандартная функция, которая выводит на консоль для элементов id и name. почему она выглядит именно так - непонятно
     def __repr__(self):
-        return "%s:%s" % (self.id, self.name)
+        return "%s:%s:%s:%s" % (self.id, self.name, self.header, self.footer)
 
 # стандартная функция, которая обеспечивает сравненте не по расположению, а по смыслу
     def __eq__(self, other):
