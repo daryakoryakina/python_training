@@ -46,8 +46,7 @@ class NumberHelper(BaseHelper):
     def edit_number_by_index(self, index, number):
         driver = self.app.driver
         self.click_number_by_index(index)
-        if len(driver.find_elements(By.NAME, "firstname")) > 0:
-            self.fill_number_form(number)
+        self.fill_number_form(number)
         driver.find_element(By.NAME, "update").click()
         self.number_cache = None
 

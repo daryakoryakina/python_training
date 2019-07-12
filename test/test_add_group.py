@@ -13,12 +13,10 @@ def random_string(prefix, maxlen):
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-testdata = [
-    Group(name=name, header=header, footer=footer)
-    for name in ["", random_string("name", 5)]
-    for header in ["", random_string("header", 10)]
-    for footer in ["", random_string("footer", 10)]
-    ]
+testdata = [Group(name="", header="", footer="")] + [
+    Group(name=random_string("name", 10), header=random_string("header", 15), footer=random_string("footer", 20))
+    for i in range(5)
+]
 
 
 # перед параметризированным тестом ставится такая метка
@@ -31,3 +29,9 @@ def test_open_group(app, group):
     new_groups = app.group.get_group_list()
     old_groups.append(group)
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+
+
+
+# for name in ["", random_string("name", 5)]
+# for header in ["", random_string("header", 10)]
+# for footer in ["", random_string("footer", 10)]
