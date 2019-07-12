@@ -16,3 +16,8 @@ def test_edit_contact(app):
     assert len(old_number) == len(new_number)
     old_number[index] = number
     assert sorted(old_number, key=Number.id_or_max) == sorted(new_number, key=Number.id_or_max)
+
+
+# dictionary = {'os':'windows', 'os_virsion':8.1}
+# dictionary['os']
+# 
