@@ -31,7 +31,7 @@ def random_string(prefix, maxlen):
 
 
 testdata = [Number(firstname="", lastname="", address="", company="")] + [
-    Number(firstname=random_string("firstnamename", 10), lastname=random_string("lastname", 15),
+    Number(firstname=random_string("firstname", 10), lastname=random_string("lastname", 15),
            address=random_string("address", 20),
            company=random_string("company", 15))
     for i in range(n)
