@@ -1,6 +1,6 @@
 import pytest
 
-from data.add_number import testdata
+from data.numbers import testdata
 from model.number import Number
 
 
