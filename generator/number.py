@@ -4,8 +4,6 @@ import random
 import string
 import getopt
 import sys
-from model.group import Group
-
 
 # генератор случайных данных
 from model.number import Number

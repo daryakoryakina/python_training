@@ -5,11 +5,11 @@ from random import randrange
 import re
 
 
-def test_get_and_assert_random_number(app, json_number):
+def test_get_and_assert_random_number(app, json_numbers):
     if app.number.count() == 0:
-        number = Number(firstname="name1", lastname="name2", nickname="name3", address2="address2",
-                        company="mycompany", address="address1", email="mail@mail", email2="mail@mail2",
-                        homephone="+123", mobilephone="234", workphone="567", secondaryphone="3456")
+        number = json_numbers # Number(firstname="name1", lastname="name2", nickname="name3", address2="address2",
+                        # company="mycompany", address="address1", email="mail@mail", email2="mail@mail2",
+                        # homephone="+123", mobilephone="234", workphone="567", secondaryphone="3456")
         app.number.create_number(number)
     old = app.number.get_number_list()
     index = randrange(len(old))
