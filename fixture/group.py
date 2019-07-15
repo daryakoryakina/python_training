@@ -14,8 +14,9 @@ class GroupHelper(BaseHelper):
         self.fill_group_form(group)
         # click to creat group button
         driver.find_element(By.NAME, "submit").click()
-        self.group_cache = None
         self.return_to_home_page()
+        self.group_cache = None
+
 
     def click_to_first_group(self):
         driver = self.app.driver
@@ -87,7 +88,7 @@ class GroupHelper(BaseHelper):
                 text = element.text
                 id = element.find_element(By.NAME, "selected[]").get_attribute("value")
                 self.group_cache.append(Group(name=text, id=id))
-            return list(self.group_cache)
+        return list(self.group_cache)
 
 
 
