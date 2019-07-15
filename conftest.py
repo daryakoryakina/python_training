@@ -62,9 +62,6 @@ def load_from_json(file):
 
 
 
-
-
-
 # username = request.config.getoption("--username")
 # password = request.config.getoption("--password")
 # http://localhost/addressbook/

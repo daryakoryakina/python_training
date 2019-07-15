@@ -5,7 +5,7 @@ from random import randrange
 import re
 
 
-def test_get_and_assert_random_number(app):
+def test_get_and_assert_random_number(app, json_number):
     if app.number.count() == 0:
         number = Number(firstname="name1", lastname="name2", nickname="name3", address2="address2",
                         company="mycompany", address="address1", email="mail@mail", email2="mail@mail2",
