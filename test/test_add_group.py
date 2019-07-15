@@ -2,13 +2,14 @@ from sys import maxsize
 
 import pytest
 
-from data.add_group import testdata
+# from data.groups import testdata
 from model.group import Group
 
 
 # перед параметризированным тестом ставится такая метка
-@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
-def test_open_group(app, group):
+# @pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
+def test_open_group(app, json_groups):
+    group = json_groups
     app.open_page()
     old_groups = app.group.get_group_list()
     app.group.create(group)

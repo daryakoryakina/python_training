@@ -5,7 +5,8 @@ from model.number import Number
 
 
 @pytest.mark.parametrize("number", testdata, ids=[repr(x) for x in testdata])
-def test_add_contact(app, number):
+def test_add_contact(app, json_number):
+    number = json_number
     app.open_page()
     app.number.open_number_page()
     old_number = app.number.get_number_list()

@@ -8,15 +8,16 @@ from model.group import Group
 
 
 # генератор случайных данных
+from model.number import Number
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of contacts", "file"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
 
 n = 5
-f = "data/groups.json"
+f = "data/numbers.json"
 
 for o, a in opts:
     if o == "-n":
@@ -29,8 +30,9 @@ def random_string(prefix, maxlen):
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-testdata = [Group(name="", header="", footer="")] + [
-    Group(name=random_string("name", 10), header=random_string("header", 15), footer=random_string("footer", 20))
+testdata = [Number(firstname="", lastname="", address="", company="")] + [
+    Number(firstname=random_string("name", 10), lastname=random_string("header", 15), address=random_string("footer", 20),
+           company=random_string("name", 15))
     for i in range(n)
 ]
 
@@ -39,8 +41,3 @@ file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 with open(file, "w") as out:
     jsonpickle.set_encoder_options("json", indent=2)
     out.write(jsonpickle.encode(testdata))
-
-#normal_data = [
-#  Group(name="groupname", header="groupheader", footer="groupfooter"),
-# Group(name="groupname1", header="groupheader1", footer="groupfooter1")
-# ]
