@@ -15,6 +15,7 @@ class GroupHelper(BaseHelper):
         # click to creat group button
         driver.find_element(By.NAME, "submit").click()
         self.group_cache = None
+        self.return_to_home_page()
 
     def click_to_first_group(self):
         driver = self.app.driver

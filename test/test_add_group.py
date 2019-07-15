@@ -10,8 +10,8 @@ from model.group import Group
 # @pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
 def test_open_group(app, json_groups):
     group = json_groups
-    app.open_page()
     old_groups = app.group.get_group_list()
+    print(old_groups)
     app.group.create(group)
     assert len(old_groups) + 1 == app.group.count()
     new_groups = app.group.get_group_list()

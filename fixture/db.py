@@ -21,6 +21,7 @@ class DbFixture:
                 list.append(Group(id=id, name=name, header=header, footer=footer))
         finally:
             cursor.close()
+        return list
 
     def destroy(self):
         self.connection.close()

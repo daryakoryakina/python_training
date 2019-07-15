@@ -33,11 +33,10 @@ def app(request):
     return fixture
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def db(request):
     db_config = load_config(request.config.getoption("--target"))['db']
-    dbfixture = DbFixture(host=db_config['host'], name=db_config['name'], user=db_config['user'],
-                          password=db_config['password'])
+    dbfixture = DbFixture(host=db_config['host'], name=db_config['name'], user=db_config['user'], password=db_config['password'])
     def final():
         dbfixture.destroy()
     request.addfinalizer(final)
@@ -49,6 +48,7 @@ def stop(request):
     def fin():
         fixture.session.ensure_logout()
         fixture.destroy()
+
     request.addfinalizer(fin)
     return fixture
 
@@ -75,11 +75,6 @@ def load_from_module(module):
 def load_from_json(file):
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data/%s.json" % file)) as f:
         return jsonpickle.decode(f.read())
-
-
-
-
-
 
 # username = request.config.getoption("--username")
 # password = request.config.getoption("--password")
