@@ -42,6 +42,10 @@ def db(request):
     request.addfinalizer(final)
     return dbfixture
 
+@pytest.fixture
+def check_ui(request):
+    return request.config.getoption("--check_ui")
+
 
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):
@@ -56,6 +60,8 @@ def stop(request):
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome")
     parser.addoption("--target", action="store", default="target.json")
+    parser.addoption("--check_ui", action="store_true")
+
 
 
 def pytest_generate_tests(metafunc):
