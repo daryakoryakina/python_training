@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from pony.orm import *
-from pymysql.converters import decoders
 
 from model.group import Group
 from model.number import Number
@@ -25,7 +24,7 @@ class ORMfixture:
         deprecated = Optional(datetime, column='deprecated')
 
     def __init__(self, host, name, user, password):
-        self.db.bind('mysql', host=host, database=name, user=user, password=password, autocommit=True, conv=decoders)
+        self.db.bind('mysql', host=host, database=name, user=user, password=password, autocommit=True)
         self.db.generate_mapping()
         sql_debug(True)
 
