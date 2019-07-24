@@ -61,7 +61,7 @@ class GroupHelper(BaseHelper):
     def edit_group_by_index(self, index, group):
         driver = self.app.driver
         self.click_group_by_index(index)
-        driver.find_element(By.XPATH, "//input[@value = 'Edit group']").click()
+        driver.find_element(By.XPATH, "//input[@name = 'edit']").click()
         if driver.current_url.endswith("group.php") and len(driver.find_elements(By.NAME, "group_name")) > 0:
             self.fill_group_form(group)
             self.update_group()

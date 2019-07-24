@@ -140,5 +140,16 @@ class NumberHelper(BaseHelper):
         secondaryphone = re.search("P: (.*)", text).group(1)
         return Number(homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
 
+    def delete_number_by_id(self, id):
+        driver = self.app.driver
+        self.click_number_by_id(id)
+        driver.find_element(By.XPATH, "//input[@value = 'Delete']").click()
+        driver.switch_to_alert().accept()
+        self.number_cache = None
+
+    def click_number_by_id(self, id):
+        driver = self.app.driver
+        driver.find_element(By.XPATH, "//input[@value='%s']" % id).click()
+
 
 
