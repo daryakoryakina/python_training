@@ -7,7 +7,7 @@ db = ORMfixture(host="127.0.0.1", name="addressbook", user="root", password="")
 #connection = pymysql.connect(host="127.0.0.1", database="addressbook", user="root", password="")
 
 try:
-    cont = db.get_numbers_not_in_group(Group(id="144"))
+    cont = db.get_numbers_in_group(Group(id="144"))
     for con in cont:
         print(con)
     print(len(cont))

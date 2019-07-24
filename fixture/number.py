@@ -1,6 +1,7 @@
 import time
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 
 from fixture.base_fixture import BaseHelper
 
@@ -43,6 +44,7 @@ class NumberHelper(BaseHelper):
         driver = self.app.driver
         driver.find_elements(By.XPATH, "//*[@title = 'Edit']")[index].click()
 
+
     def edit_number_by_index(self, index, number):
         driver = self.app.driver
         self.click_number_by_index(index)
@@ -52,6 +54,20 @@ class NumberHelper(BaseHelper):
 
     def edit_number(self):
         self.edit_number_by_index(0)
+
+    def select_group(self, group_id):
+        driver = self.app.driver
+        group = driver.find_element(By.NAME, "to_group")
+        group.find_element(By.TAG_NAME, "//option[@value = '%s % group_id]").click()
+        driver.find_element(By.XPATH, "//input[@value = 'Add to']").click()
+
+
+
+    def add_number_in_group(self, group_id):
+        driver = self.app.driver
+        driver.find_element(By.ID, "MassCB").click()
+        self.select_group(group_id)
+
 
     def return_to_home_page(self):
         driver = self.app.driver
