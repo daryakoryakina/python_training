@@ -36,18 +36,17 @@ class DbFixture:
             cursor.close()
         return list
 
-    def get_number_by_id(self, number_id):
+    def get_number_by_id(self, num_id):
         cursor = self.connection.cursor()
         try:
             cursor.execute("select id, firstname, lastname from addressbook where "
                            "deprecated='0000-00-00 00:00:00' and id='%s' % number_id")
             for row in cursor:
                 (id, firstname, lastname) = row
-                number_id = (Number(id=str(id), firstname=firstname, lastname=lastname))
-
+                num_id = (Number(id=str(id), firstname=firstname, lastname=lastname))
         finally:
             cursor.close()
-        return number_id
+        return num_id
 
     def destroy(self):
         self.connection.close()
