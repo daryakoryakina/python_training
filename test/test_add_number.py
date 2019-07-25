@@ -4,7 +4,7 @@ from model.number import Number
 
 
 # @pytest.mark.parametrize("number", testdata, ids=[repr(x) for x in testdata])
-def test_add_contact(app, db, json_numbers):
+def test_add_contact(app, db, json_numbers, check_ui):
     number = json_numbers
     app.open_page()
     app.number.open_number_page()
@@ -13,6 +13,8 @@ def test_add_contact(app, db, json_numbers):
     new_number = db.get_number_list()
     old_number.append(number)
     assert sorted(old_number, key=Number.id_or_max) == sorted(new_number, key=Number.id_or_max)
+    if check_ui:
+        assert sorted(new_number, key=Number.id_or_max) == sorted(app.number.get_number_list(), key=Number.id_or_max)
 
 
 
