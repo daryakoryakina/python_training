@@ -63,7 +63,6 @@ def pytest_addoption(parser):
     parser.addoption("--check_ui", action="store_true")
 
 
-
 def pytest_generate_tests(metafunc):
     for fixture in metafunc.fixturenames:
         if fixture.startswith("data_"):

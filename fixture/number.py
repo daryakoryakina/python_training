@@ -57,8 +57,8 @@ class NumberHelper(BaseHelper):
 
     def select_group(self, group_id):
         driver = self.app.driver
-        group = driver.find_element(By.NAME, "to_group")
-        group.find_element(By.TAG_NAME, "//option[@value = '%s % group_id]").click()
+        group = Select(driver.find_element(By.NAME, "to_group"))
+        group.select_by_value('%s' % group_id)
         driver.find_element(By.XPATH, "//input[@value = 'Add to']").click()
 
 
@@ -166,6 +166,19 @@ class NumberHelper(BaseHelper):
     def click_number_by_id(self, id):
         driver = self.app.driver
         driver.find_element(By.XPATH, "//input[@value='%s']" % id).click()
+
+    def delete_number_from_group(self, group_id):
+        driver = self.app.driver
+        group = Select(driver.find_element(By.NAME, "group"))
+        group.select_by_value('%s' % group_id)
+        driver.find_element(By.NAME, "selected[]").click()
+        driver.find_element(By.XPATH, "//input[@name='remove']").click()
+
+
+
+
+
+
 
 
 
