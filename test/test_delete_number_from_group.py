@@ -13,4 +13,4 @@ def test_delete_number_from_group(app, db, orm):
     group_id = random.choice(group).id
     number_id = random.choice(orm.get_numbers_in_group(Group(id=group_id))).id
     app.number.delete_number_from_group(group_id)
-    assert db.get_number_by_id(number_id) not in orm.get_numbers_in_group(Group(id=group_id))
+    assert db.get_number_by_id(id=number_id) not in orm.get_numbers_in_group(Group(id=group_id))
